@@ -8,20 +8,9 @@
  */
 require_once 'Bootstrap.php';
 
-// Initialize our repository.
-$repository = new \IocExample\Data\OrderRepository(array(
-        'dsn' => 'mysql://localhost/database',
-        'username' => 'root',
-        'password' => ''
-));
+/** @var sfServiceContainerInterface $container */
+$container = \Zend_Registry::get('di_container');
 
-// Initialize our notifier.
-$notifier = new \IocExample\Notifier\EmailNotifier(new \Zend_Mail());
-
-// Initialize our logging.
-$writer = new \Zend_Log_Writer_Stream('/var/log/IocExample/debug.log', 'a');
-$log = new \Zend_Log();
-$log->addWriter($writer);
-
-$orderDeliveryController = new \IocExample\Controllers\OrderDeliveryController($repository, $notifier, $log);
+/** @var \IocExample\Controllers\OrderDeliveryController $orderDeliveryController */
+$orderDeliveryController = $container->getService('delivery_controller');
 $orderDeliveryController->deliverOrder($argv[0]);

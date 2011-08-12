@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony-project.org/2.0/container">
+    <services>
+        <service id="iorderrepository" class="\IocExample\Data\OrderRepository" shared="false">
+            <argument type="collection">
+                <argument key="host">localhost</argument>
+                <argument key="dbname">mysql</argument>
+                <argument key="username">root</argument>
+                <argument key="password"> </argument>
+            </argument>
+        </service>
+        <service id="logger_writer" class="\Zend_Log_Writer_Stream" shared="false">
+            <argument>php://stdout</argument>
+            <argument>a</argument>
+        </service>
+        <service id="logger" class="\Zend_Log" shared="false">
+            <call method="addWriter">
+                <argument type="service" id="logger_writer"/>
+            </call>
+        </service>
+        <service id="mailer" class="\Zend_Mail" shared="false">
+        </service>
+        <service id="inotifier" class="\IocExample\Notifier\EmailNotifier" shared="false">
+            <argument type="service" id="mailer" />
+        </service>
+        <service id="delivery_controller" class="\IocExample\Controllers\OrderDeliveryController" shared="false">
+            <argument type="service" id="iorderrepository" />
+            <argument type="service" id="inotifier" />
+            <argument type="service" id="logger" />
+        </service>
+    </services>
+</container>

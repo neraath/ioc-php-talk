@@ -20,7 +20,7 @@ class OrderRepository implements IOrderRepository
 
     public function __construct(array $config)
     {
-        $this->_database = \Zend_Db::factory($config);
+        $this->_database = \Zend_Db::factory('Pdo_Mysql', $config);
     }
 
     /**
@@ -55,7 +55,7 @@ class OrderRepository implements IOrderRepository
         }
         catch (\Exception $e)
         {
-            throw;
+            throw $e;
         }
     }
 }
