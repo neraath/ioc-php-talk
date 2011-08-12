@@ -7,19 +7,20 @@
  * @author Chris Weldon <chris@chrisweldon.net>
  */
 namespace IocExample\Data;
-use IocExample\Model\Customer,
+use IocExample\Data\Interfaces\IOrderRepository,
+    IocExample\Model\Customer,
     IocExample\Model\Order;
-class OrderRepository
+
+class OrderRepository implements IOrderRepository
 {
+    /**
+     * @var \Zend_Db_Adapter_Abstract
+     */
     private $_database;
 
-    public function __construct()
+    public function __construct(array $config)
     {
-        $this->_database = \Zend_Db::factory(array(
-            'dsn' => 'mysql://localhost/database',
-            'username' => 'root',
-            'password' => ''
-        ));
+        $this->_database = \Zend_Db::factory($config);
     }
 
     /**

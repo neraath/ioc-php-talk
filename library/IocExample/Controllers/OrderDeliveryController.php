@@ -9,12 +9,13 @@
 
 namespace IocExample\Controllers;
 
-use \IocExample\Data\OrderRepository;
+use \IocExample\Data\Interfaces\IOrderRepository,
+    \IocExample\Notifier\Interfaces\INotifier;
 
 class OrderDeliveryController
 {
     /**
-     * @var \IocExample\Data\OrderDeliveryRepository
+     * @var \IocExample\Data\Interfaces\IOrderRepository
      */
     private $_repository;
 
@@ -23,12 +24,16 @@ class OrderDeliveryController
      */
     private $_logger;
 
-    public function __construct()
+    /**
+     * @var \INotifier
+     */
+    private $_notifier;
+
+    public function __construct(IOrderRepository $repository, INotifier $notifier, \Zend_Log $logger)
     {
-        $this->_repository = new OrderRepository();
-        $streamWriter = new \Zend_Log_Writer_Stream('/var/log/IocExample/delivery.log', 'a');
-        $this->_logger = new \Zend_Log();
-        $this->_logger->addWriter($streamWriter);
+        $this->_repository = $repository;
+        $this->_logger = $logger;
+        $this->_notifier = $notifier;
     }
 
     /**
@@ -41,12 +46,8 @@ class OrderDeliveryController
     {
         try {
             $order = $this->_repository->getById($orderId);
-
-            $mailer = new \Zend_Mail();
-            $mailer->setFrom('orders@chrisweldon.net', 'Grumpy Baby Orders');
-            $mailer->setSubject('Order #' . $order->getId() . ' out for Delivery');
-            $mailer->setBodyText('Your order is being shipped!');
-            $mailer->send();
+            // TODO: Do something useful with the order.
+            $this->_notifier->notifyCustomerOfDelivery($order->getCustomer(), $order);
         } catch (\Exception $e) {
             $this->_logger->err('An error occurred while delivering the order.', $e);
         }
