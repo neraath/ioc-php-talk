@@ -1,0 +1,27 @@
+
+============================================================
+Introduction
+
+The files contained in this project are a part of the
+IoC in PHP presentation delivered by Chris Weldon. They
+make up the basics of a sample application used to
+illustrate software architecture problems and how the
+Symfony Dependency Injection Framework helps to solve
+the problems.
+
+This is not meant to be a fully-working solution. The
+unit tests created in subsequent branches are what help
+to illustrate the possibility of a working system. However,
+only component fundamentals are being illustrated in the
+project, not a complete solution.
+
+============================================================
+Comments and Suggestions
+
+You are welcome to contact Chris with your comments and
+suggestions on how to improve this project. Or, you can
+fork it and enhance it yourself! Either way, let me know
+your thoughts by sending an e-mail to:
+
+chris at chrisweldon dot net
+
