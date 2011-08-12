@@ -35,6 +35,7 @@ class EmailNotifier implements INotifier
         $this->_mailer->setFrom('orders@chrisweldon.net', 'Grumpy Baby Orders');
         $this->_mailer->setSubject('Order #' . $order->getId() . ' out for Delivery');
         $this->_mailer->setBodyText('Your order is being shipped!');
+        $this->_mailer->addTo($customer->getEmail(), $customer->getName());
         $this->_mailer->send();
     }
 }

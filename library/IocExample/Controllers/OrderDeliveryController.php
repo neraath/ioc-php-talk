@@ -49,7 +49,7 @@ class OrderDeliveryController
             // TODO: Do something useful with the order.
             $this->_notifier->notifyCustomerOfDelivery($order->getCustomer(), $order);
         } catch (\Exception $e) {
-            $this->_logger->err('An error occurred while delivering the order.', $e);
+            $this->_logger->err('An error occurred while delivering the order: ' . $e->getMessage(), $e);
         }
     }
 }
