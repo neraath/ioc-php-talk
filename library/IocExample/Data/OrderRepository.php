@@ -9,7 +9,7 @@
 namespace IocExample\Data;
 use IocExample\Model\Customer,
     IocExample\Model\Order;
-class OrderDeliveryRepository
+class OrderRepository
 {
     private $_database;
 

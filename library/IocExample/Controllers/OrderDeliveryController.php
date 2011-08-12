@@ -9,7 +9,7 @@
 
 namespace IocExample\Controllers;
 
-use \IocExample\Data\OrderDeliveryRepository;
+use \IocExample\Data\OrderRepository;
 
 class OrderDeliveryController
 {
@@ -25,7 +25,7 @@ class OrderDeliveryController
 
     public function __construct()
     {
-        $this->_repository = new OrderDeliveryRepository();
+        $this->_repository = new OrderRepository();
         $streamWriter = new \Zend_Log_Writer_Stream('/var/log/IocExample/delivery.log', 'a');
         $this->_logger = new \Zend_Log();
         $this->_logger->addWriter($streamWriter);
